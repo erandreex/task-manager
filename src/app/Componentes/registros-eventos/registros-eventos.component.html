@@ -1,0 +1,106 @@
+<div class="pag-layout">
+    <div class="container-md h-100">
+        <div class="row h-100">
+            <div class="col-6 listas">
+                <div class="card">
+                    <div class="card-header">
+                        <p>TITULO</p>
+
+                        <div class="d-flex flex-column">
+                            <span>Atendido: Anthony Dandrade</span>
+                            <span>Inicio: 2022/22/22</span>
+                            <span>Fin: 2022/22/22</span>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing
+                            elit. Optio temporibus quasi doloremque odit esse,
+                            corrupti deleniti repellat et, alias cum fugiat in
+                            numquam, saepe magni nulla amet aspernatur. Neque,
+                            cumque.
+                        </p>
+                    </div>
+
+                    <div class="card-footer">
+                        <button class="btn btn-secondary">Editar</button>
+                        <button class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 registro">
+                <form [formGroup]="form" (ngSubmit)="editaragregar()">
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="titulo">Titulo</label>
+                            <input
+                                type="text"
+                                name="titulo"
+                                id="titulo"
+                                formControlName="titulo"
+                                class="form-control"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="fecha_inicio">Fecha inicio:</label>
+                            <input
+                                type="datetime-local"
+                                name="fecha_inicio"
+                                id="fecha_inicio"
+                                formControlName="fecha_inicio"
+                                class="form-control"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="fecha_fin">Fecha fin:</label>
+                            <input
+                                type="datetime-local"
+                                name="fecha_fin"
+                                id="fecha_fin"
+                                formControlName="fecha_fin"
+                                class="form-control"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="fecha_fin">Atendido por:</label>
+
+                            <select
+                                name="atendido"
+                                id="atendido"
+                                class="custom-select form-control"
+                                formControlName="atendido"
+                            >
+                                <option value="1">Persona 1</option>
+                                <option value="2">Persona 2</option>
+                                <option value="3">Persona 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-12">
+                            <label for="fecha_fin">Descripcion: </label>
+
+                            <textarea
+                                formControlName="description"
+                                name="description"
+                                id=""
+                                class="form-control"
+                            ></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
