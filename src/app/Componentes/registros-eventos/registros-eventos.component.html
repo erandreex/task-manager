@@ -1,102 +1,200 @@
 <div class="pag-layout">
     <div class="container-md h-100">
+        <div class="row">
+            <h1 class="titulo-main">Task Manager</h1>
+        </div>
+
         <div class="row h-100">
-            <div class="col-6 listas">
-                <div class="card">
-                    <div class="card-header">
-                        <p>TITULO</p>
+            <div>
+                <button
+                    *ngIf="banderaMostarLista"
+                    class="btn btn-primary"
+                    (click)="mostrarFormLista('form')"
+                >
+                    Agregar
+                </button>
+                <button
+                    *ngIf="!banderaMostarLista"
+                    class="btn btn-secondary"
+                    (click)="mostrarFormLista('lista')"
+                >
+                    Lista
+                </button>
+            </div>
 
-                        <div class="d-flex flex-column">
-                            <span>Atendido: Anthony Dandrade</span>
-                            <span>Inicio: 2022/22/22</span>
-                            <span>Fin: 2022/22/22</span>
+            <div *ngIf="banderaMostarLista" class="col-12 listas-layout">
+                <div class="listas overflow-auto">
+                    <div class="card" *ngFor="let task of listaTask">
+                        <div class="card-header">
+                            <p>{{ task.doc.titulo }}</p>
+
+                            <div class="d-flex flex-column">
+                                <span>Atendido: {{ task.doc.atencion }}</span>
+                                <span
+                                    >Inicio:
+                                    {{
+                                        task.doc.fecha_inicio
+                                            | date : "MMM d, y, h:mm a"
+                                    }}</span
+                                >
+                                <span
+                                    >Fin:
+                                    {{
+                                        task.doc.fecha_final
+                                            | date : "MMM d, y, h:mm a"
+                                    }}</span
+                                >
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="card-body">
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Optio temporibus quasi doloremque odit esse,
-                            corrupti deleniti repellat et, alias cum fugiat in
-                            numquam, saepe magni nulla amet aspernatur. Neque,
-                            cumque.
-                        </p>
-                    </div>
+                        <div class="card-body">
+                            <p>
+                                {{ task.doc.descripcion }}
+                            </p>
+                        </div>
 
-                    <div class="card-footer">
-                        <button class="btn btn-secondary">Editar</button>
-                        <button class="btn btn-danger">Eliminar</button>
+                        <div class="card-footer">
+                            <button
+                                class="btn btn-secondary"
+                                (click)="editarBtn(task.doc._id)"
+                            >
+                                Editar
+                            </button>
+                            <button
+                                class="btn btn-danger"
+                                (click)="eliminarBtn(task.doc._id)"
+                            >
+                                Eliminar
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6 registro">
-                <form [formGroup]="form" (ngSubmit)="editaragregar()">
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="titulo">Titulo</label>
-                            <input
-                                type="text"
-                                name="titulo"
-                                id="titulo"
-                                formControlName="titulo"
-                                class="form-control"
-                            />
+
+            <div *ngIf="!banderaMostarLista" class="col-12 registro">
+                <form [formGroup]="formadd">
+                    <div class="form-layout">
+                        <input type="hidden" formControlName="_id" />
+                        <input type="hidden" formControlName="_rev" />
+
+                        <h1>
+                            {{ agregarMethod ? "Agregar Task" : "Editar Task" }}
+                        </h1>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="titulo">Titulo</label>
+                                <input
+                                    type="text"
+                                    name="titulo"
+                                    id="titulo"
+                                    formControlName="titulo"
+                                    class="form-control"
+                                />
+                                <span
+                                    *ngIf="campoNoesValido('titulo')"
+                                    class="form-text text-danger"
+                                    >Es requerido</span
+                                >
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="fecha_inicio">Fecha inicio:</label>
-                            <input
-                                type="datetime-local"
-                                name="fecha_inicio"
-                                id="fecha_inicio"
-                                formControlName="fecha_inicio"
-                                class="form-control"
-                            />
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="fecha_inicio">Fecha inicio:</label>
+                                <input
+                                    type="datetime-local"
+                                    name="fecha_inicio"
+                                    id="fecha_inicio"
+                                    formControlName="fecha_inicio"
+                                    class="form-control"
+                                />
+                                <span
+                                    *ngIf="campoNoesValido('fecha_inicio')"
+                                    class="form-text text-danger"
+                                    >Es requerido</span
+                                >
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="fecha_fin">Fecha fin:</label>
-                            <input
-                                type="datetime-local"
-                                name="fecha_fin"
-                                id="fecha_fin"
-                                formControlName="fecha_fin"
-                                class="form-control"
-                            />
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="fecha_final">Fecha fin:</label>
+                                <input
+                                    type="datetime-local"
+                                    name="fecha_final"
+                                    id="fecha_final"
+                                    formControlName="fecha_final"
+                                    class="form-control"
+                                />
+                                <span
+                                    *ngIf="campoNoesValido('fecha_final')"
+                                    class="form-text text-danger"
+                                    >Es requerido</span
+                                >
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="fecha_fin">Atendido por:</label>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="atencion">Atendido por:</label>
 
-                            <select
-                                name="atendido"
-                                id="atendido"
-                                class="custom-select form-control"
-                                formControlName="atendido"
-                            >
-                                <option value="1">Persona 1</option>
-                                <option value="2">Persona 2</option>
-                                <option value="3">Persona 3</option>
-                            </select>
+                                <select
+                                    name="atencion"
+                                    id="atencion"
+                                    class="custom-select form-control"
+                                    formControlName="atencion"
+                                >
+                                    <option
+                                        *ngFor="let empleado of listaEmpleados"
+                                        [value]="empleado.doc.nombre"
+                                    >
+                                        {{ empleado.doc.nombre }}
+                                    </option>
+                                </select>
+                                <span
+                                    *ngIf="campoNoesValido('atencion')"
+                                    class="form-text text-danger"
+                                    >Es requerido</span
+                                >
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="fecha_fin">Descripcion: </label>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="descripcion">Descripcion: </label>
 
-                            <textarea
-                                formControlName="description"
-                                name="description"
-                                id=""
-                                class="form-control"
-                            ></textarea>
+                                <textarea
+                                    formControlName="descripcion"
+                                    name="descripcion"
+                                    id=""
+                                    class="form-control"
+                                ></textarea>
+
+                                <span
+                                    *ngIf="campoNoesValido('descripcion')"
+                                    class="form-text text-danger"
+                                    >Es requerido</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    (click)="agregarTask()"
+                                >
+                                    Guardar
+                                </button>
+                                <button
+                                    class="btn btn-secondary"
+                                    (click)="limpiar()"
+                                >
+                                    Limpiar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>

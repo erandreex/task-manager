@@ -3,13 +3,64 @@
 }
 
 
+.listas-layout {
+    height: 80%;
+    overflow-y: auto;
+}
+
+.titulo-main {
+    text-align: center;
+    margin: 10px;
+}
+
+.card {
+    margin: 10px;
+    background: rgba(158, 158, 158, 0.31);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: white;
+}
+
+form {
+    background: rgba(158, 158, 158, 0.31);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    margin: 20px;
+    width: 50%;
+}
+
+
 .listas {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     height: 100%;
-    background-color: pink;
+    overflow-y: auto;
+}
+
+.listas > *  {
+    width: 45%;
+}
+
+* {
+    color: white;
+}
+
+form input, option{
+    color: black;
 }
 
 
 .registro {
-    height: 100%;
-    background-color: greenyellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-layout{
+    padding: 20px;
 }
